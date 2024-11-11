@@ -7,9 +7,9 @@ hooks:
   BeforeInstall:
     - location: scripts/before_install.sh
       timeout: 180
-  Install:
-    - location: scripts/install.sh
-      timeout: 180
+  # Install:
+  #   - location: scripts/install.sh
+  #     timeout: 180
   AfterInstall:
     - location: scripts/after_install.sh
       timeout: 180

@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Log the start of the ApplicationStart process
-echo 'Running start_app.sh: ' >> /home/ec2-user/nodejs_app/deploy.log
+# echo 'Running start_app.sh: ' >> /home/ec2-user/nodejs_app/deploy.log
 
 # Navigate to the application directory
 echo 'Changing directory to /home/ec2-user/nodejs_app' >> /home/ec2-user/nodejs_app/deploy.log
