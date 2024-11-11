@@ -1,22 +1,21 @@
 version: 0.0
 os: linux
 files:
-  - source: /
+  - source: /nodejs_app/
     destination: /home/ec2-user/nodejs_app
 hooks:
-ApplicationStop:
-DownloadBundle:
- BeforeInstall:
-   - location: scripts/before_install.sh
-     timeout: 300
-     runas: root
-# Install:
+  BeforeInstall:
+    - location: scripts/before_install.sh
+      timeout: 180
+  Install:
+    - location: scripts/install.sh
+      timeout: 180
   AfterInstall:
     - location: scripts/after_install.sh
-      timeout: 300
-      runas: root
+      timeout: 180
   ApplicationStart:
-    - location: scripts/application_start.sh
-      timeout: 300
-      runas: root
-# ValidateService:
+    - location: scripts/start_app.sh
+      timeout: 180
+  ValidateService:
+    - location: scripts/validate_service.sh
+      timeout: 180
