@@ -1,34 +1,23 @@
+
 version: 0.0
-os: linux
+os: linux 
 files:
   - source: /
     destination: /home/ec2-user/nodejs_app
-
 hooks:
   BeforeInstall:
-    # Clean the target directory to avoid file conflicts and install dependencies
-    - script: |
-        rm -rf /home/ec2-user/nodejs_app/*
-        # Install dependencies after cleanup
-        cd /home/ec2-user/nodejs_app
-        npm install
-
-  ApplicationStop:
-    - location: scripts/stop_server.sh
+    - location: scripts/before_install.sh
       timeout: 300
       runas: ec2-user
-
+# During the AfterInstall deployment lifecycle event, run the commands 
+#   in the script specified in "location".
   AfterInstall:
-    - location: scripts/change_permissions.sh
+    - location: scripts/after_install.sh
       timeout: 300
       runas: ec2-user
-
+# During the ApplicationInstall deployment lifecycle event, run the commands 
+#   in the script specified in "location".
   ApplicationStart:
-    - location: scripts/start_server.sh
-      timeout: 300
-      runas: ec2-user
-
-  ValidateService:
-    - location: scripts/validate_service.sh
+    - location: scripts/application_start.sh
       timeout: 300
       runas: ec2-user
