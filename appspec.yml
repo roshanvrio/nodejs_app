@@ -6,17 +6,12 @@ files:
 
 hooks:
   BeforeInstall:
-    # Clean the target directory to avoid file conflicts
-    - location: /bin/bash
-      timeout: 300
-      runas: ec2-user
-      script: |
+    # Clean the target directory to avoid file conflicts and install dependencies
+    - script: |
         rm -rf /home/ec2-user/nodejs_app/*
-
-    # Install dependencies
-    - location: scripts/install_dependencies.sh
-      timeout: 300
-      runas: ec2-user
+        # Install dependencies after cleanup
+        cd /home/ec2-user/nodejs_app
+        npm install
 
   ApplicationStop:
     - location: scripts/stop_server.sh
