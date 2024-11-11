@@ -5,13 +5,21 @@ files:
     destination: /home/ec2-user/nodejs_app
 
 hooks:
-  ApplicationStop:
-    - location: scripts/stop_server.sh
+  BeforeInstall:
+    # Clean the target directory to avoid file conflicts
+    - location: /bin/bash
+      timeout: 300
+      runas: ec2-user
+      script: |
+        rm -rf /home/ec2-user/nodejs_app/*
+
+    # Install dependencies
+    - location: scripts/install_dependencies.sh
       timeout: 300
       runas: ec2-user
 
-  BeforeInstall:
-    - location: scripts/install_dependencies.sh
+  ApplicationStop:
+    - location: scripts/stop_server.sh
       timeout: 300
       runas: ec2-user
 
